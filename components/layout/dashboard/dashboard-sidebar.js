@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box,  Divider, Drawer,useMediaQuery } from '@mui/material';
+import { Box,  Divider, Drawer,useMediaQuery,Avatar, } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PeopleIcon from '@mui/icons-material/People';
 import PersonIcon from '@mui/icons-material/Person';
@@ -13,6 +13,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import StoreIcon from "@mui/icons-material/Store";
 
 const items = [
   {
@@ -58,7 +59,7 @@ const items = [
 ];
 
 export const DashboardSidebar = (props) => {
-  const { open, onClose } = props;
+  const { open, onClose ,isLogin,user} = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
@@ -89,27 +90,26 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
-            <NextLink
-              href="/"
-              passHref
-            >
-             
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                />
-             
-            </NextLink>
+          <Box sx={{p:2, display:'d-flex',justifyContent:'center'}}>
+               <Avatar
+                onClick={() => setOpenAccountPopover(true)}
+                sx={{
+                  cursor: "pointer",
+                  width:'100px',
+                  height:'100px',
+                }}
+                src={user?.image}
+              >
+                 {!isLogin&&<StoreIcon  fontSize='large' />}
+              </Avatar>
+            
           </Box>
        
         </div>
         <Divider
           sx={{
             borderColor: '#2D3748',
-            my: 3
+            mb: 3
           }}
         />
   

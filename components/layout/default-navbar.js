@@ -28,6 +28,7 @@ import { AccountPopover } from "./default-account-popover";
 import { useSession } from "next-auth/react";
 import InputBase from "@mui/material/InputBase";
 
+import HomeIcon from '@mui/icons-material/Home';
 const DefaultNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
@@ -35,17 +36,17 @@ const DefaultNavbarRoot = styled(AppBar)(({ theme }) => ({
 
 const navitems = [
   {
-    href: "/dashboard/",
+    href: "/",
+    icon: <HomeIcon fontSize="small" />,
+    title: "Home",
+  },
+  {
+    href: "/dashboard",
     icon: <BarChartIcon fontSize="small" />,
     title: "Dashboard",
   },
   {
-    href: "/dashboard/customers",
-    icon: <PeopleIcon fontSize="small" />,
-    title: "Customers",
-  },
-  {
-    href: "/dashboard/products",
+    href: "/products",
     icon: <ShoppingBagIcon fontSize="small" />,
     title: "Products",
   },
