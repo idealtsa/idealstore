@@ -55,3 +55,10 @@ export const AuthGuard = (props) => {
 AuthGuard.propTypes = {
   children: PropTypes.node
 };
+
+AuthGuard.auth =true
+//  {
+//   role: "admin",
+//   loading: <div>loading</div>,
+//   unauthorized: "/login-with-different-user", // redirect to this url
+// }

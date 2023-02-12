@@ -16,42 +16,42 @@ import { NavItem } from './nav-item';
 
 const items = [
   {
-    href: '/',
+    href: '/dashboard/',
     icon: (<BarChartIcon fontSize="small" />),
     title: 'Dashboard'
   },
   {
-    href: '/customers',
+    href: '/dashboard/customers',
     icon: (<PeopleIcon fontSize="small" />),
     title: 'Customers'
   },
   {
-    href: '/products',
+    href: '/dashboard/products',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Products'
   },
   {
-    href: '/account',
+    href: '/dashboard/account',
     icon: (<PersonIcon fontSize="small" />),
     title: 'Account'
   },
   {
-    href: '/settings',
+    href: '/dashboard/settings',
     icon: (<SettingsIcon fontSize="small" />),
     title: 'Settings'
   },
   {
-    href: '/login',
+    href: '/dashboard/login',
     icon: (<LockPersonIcon fontSize="small" />),
     title: 'Login'
   },
   {
-    href: '/register',
+    href: '/dashboard/register',
     icon: (<PersonAddIcon fontSize="small" />),
     title: 'Register'
   },
   {
-    href: '/404',
+    href: '/dashboard/404',
     icon: (<CancelIcon fontSize="small" />),
     title: 'Error'
   }

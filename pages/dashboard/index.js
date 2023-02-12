@@ -18,6 +18,7 @@ const Page = () => (
         py: 8
       }}
     >
+     
       {/* <Container maxWidth={false}>
         <Grid
           container
@@ -99,7 +100,8 @@ const Page = () => (
       </Container> */}
     </Box>
   </Fragment>
-);
+)
+
 
 Page.getLayout = (page) => (
   <DashboardLayout>
@@ -107,4 +109,10 @@ Page.getLayout = (page) => (
   </DashboardLayout>
 );
 
+Page.auth = 
+{
+  role: "admin",
+  loading: <div>loading</div>,
+  unauthorized: "/login-with-different-user", // redirect to this url
+}
 export default Page;
