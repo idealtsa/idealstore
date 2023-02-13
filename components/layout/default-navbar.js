@@ -201,7 +201,7 @@ export const DefaultNavbar = () => {
                   width: 40,
                   ml: 1,
                 }}
-                src={session.user.image}
+                src={session?.user.image}
               >
                 <PeopleIcon fontSize="small" />
               </Avatar>
