@@ -1,5 +1,5 @@
-import connectMongoose from "../../../../utils/connectMongoose.js";
-import { Product, Categories } from "../../../../model/index";
+import connectMongoose from "@/lib/connectMongoose";
+import {Product,  Categories } from "@/models";
 
 export default async (req, res) => {
   // Database connection

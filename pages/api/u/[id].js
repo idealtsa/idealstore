@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
-import { User } from "../../../model/index";
-import connectMongoose from "../../../utils/connectMongoose.js";
+import connectMongoose from "@/lib/connectMongoose";
+import {User } from "@/models";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { setCookie } from "cookies-next";

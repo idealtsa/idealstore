@@ -2,7 +2,8 @@ import { v2 as cloudinary } from "cloudinary";
 import nextConnect from "next-connect";
 import multer from "multer";
 import DataURIParser from "datauri/parser";
-import connectMongoose from "../../../utils/connectMongoose";
+import connectMongoose from "@/lib/connectMongoose";
+
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

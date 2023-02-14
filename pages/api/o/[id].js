@@ -1,5 +1,6 @@
-import connectMongoose from "../../../utils/connectMongoose.js";
-import { Categories } from "../../../model/orderModel";
+import connectMongoose from "@/lib/connectMongoose";
+import { Categories } from "@/models";
+
 
 export default Index= async (req, res) => {
   // Database connection

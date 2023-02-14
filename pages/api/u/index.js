@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
-import { User } from "../../../model/index";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import connectMongoose from "../../../utils/connectMongoose.js";
+import connectMongoose from "@/lib/connectMongoose";
+import {User } from "@/models";
 import { setCookie } from "cookies-next";
-import { addUser } from "./signup";
+import { addUser } from "@/signup";
 export default async (req, res) => {
   // Database connection
   await connectMongoose();

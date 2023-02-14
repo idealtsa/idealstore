@@ -1,6 +1,5 @@
-
-import connectMongoose from "../../../utils/connectMongoose";
-import { User } from "../../../model/index";
+import connectMongoose from "@/lib/connectMongoose";
+import {User } from "@/models";
 import nodemailer from "nodemailer";
 import { setCookie } from 'cookies-next';
 const signin = async (req, res) => {
