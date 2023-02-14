@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DefaultNavbar } from './default-navbar';
-import { useSession } from "next-auth/react";
+import Head from 'next/head';
 
 const DefaultLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -15,9 +15,14 @@ const DefaultLayoutRoot = styled('div')(({ theme }) => ({
 }));
 
 export const DefaultLayout = (props) => {
-  const { children } = props;
+  const { children,title, description  } = props;
   return (
     <Fragment>
+       <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <DefaultLayoutRoot>
         <Box
           sx={{

@@ -11,11 +11,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import StoreIcon from "@mui/icons-material/Store";
-
+import HomeIcon from '@mui/icons-material/Home';
 const items = [
+  {
+    href: '/',
+    icon: (<HomeIcon fontSize="small" />),
+    title: 'Home'
+  },
   {
     href: '/dashboard/',
     icon: (<BarChartIcon fontSize="small" />),

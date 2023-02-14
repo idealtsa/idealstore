@@ -16,6 +16,7 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  // console.log("Session Myapp", JSON.stringify(session, null, 2))
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <CacheProvider value={clientSideEmotionCache}>
@@ -54,8 +55,6 @@ export default function MyApp({
 function Auth({ children }) {
   // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
   const { status } = useSession({ required: true });
-
-
   if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -67,3 +66,15 @@ MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      session: await getServerSession(
+        context.req,
+        context.res,
+        authOptions
+      ),
+    },
+  }
+}

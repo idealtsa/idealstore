@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "@/models";
 import connectMongoose from "@/lib/connectMongoose";
 export const authOptions = {
+
   providers: [
     // OAuth authentication providers
 

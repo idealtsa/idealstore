@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { styled, alpha } from "@mui/material/styles";
 import {
@@ -14,11 +14,16 @@ import {
   Button,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -27,8 +32,8 @@ import StoreIcon from "@mui/icons-material/Store";
 import { AccountPopover } from "./default-account-popover";
 import { useSession } from "next-auth/react";
 import InputBase from "@mui/material/InputBase";
-
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
+import { useRouter } from "next/router";
 const DefaultNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
@@ -53,16 +58,58 @@ const navitems = [
 ];
 
 export const DefaultNavbar = () => {
-  const { data: session, status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      setLogin(false);
-    },
+  const { data: session, status } = useSession();
+  const [state, setState] = useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
   });
-  const [isLogin, setLogin] = useState(status === "authenticated");
-  useEffect(() => {
-    setLogin(status === "authenticated");
-  }, [status]);
+  const router = useRouter();
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 280 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <StoreIcon />
+            </ListItemIcon>
+            <ListItemText primary={"IDEAL STORE"} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        {navitems.map((item, index) => (
+          <ListItem key={item.title} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText
+                primary={item.title}
+                onClick={() => router.push(item.href)}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -100,42 +147,25 @@ export const DefaultNavbar = () => {
             }}
           >
             <IconButton
-              id="basic-button"
               sx={{
                 display: {
                   xs: "inline-flex",
                   lg: "none",
                 },
               }}
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
+              onClick={toggleDrawer("left", true)}
             >
               <MenuIcon fontSize="small" />
             </IconButton>
 
             {lgUp ? (
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
+              <Drawer
+                anchor={"left"}
+                open={state["left"]}
+                onClose={toggleDrawer("left", false)}
               >
-                {navitems.map((item, i) => (
-                  <MenuItem
-                    key={`${i}-iii`}
-                    sx={{ color: "text.primary" }}
-                    onClick={handleClose}
-                    href={item.href}
-                  >
-                    {item.title}
-                  </MenuItem>
-                ))}
-              </Menu>
+                {list("left")}
+              </Drawer>
             ) : (
               <Fragment>
                 <StoreIcon sx={{ mr: 1 }} />
@@ -169,7 +199,7 @@ export const DefaultNavbar = () => {
               </IconButton>
             </Box>
           </Tooltip>
-          {isLogin ? (
+          {session && true ? (
             <Box
               sx={{
                 display: "inline-flex",
@@ -235,7 +265,7 @@ export const DefaultNavbar = () => {
         anchorEl={settingsRef.current}
         open={openAccountPopover}
         user={session?.user}
-        isLogin={isLogin}
+        isLogin={session && true}
         onClose={() => setOpenAccountPopover(false)}
       />
     </Box>

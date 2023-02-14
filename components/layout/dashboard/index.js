@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { AuthGuard } from "@/components/auth-guard";
 import { DashboardNavbar } from "./dashboard-navbar";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { useSession } from "next-auth/react";
-
+import Head from "next/head";
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flex: "1 1 auto",
@@ -15,23 +14,22 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
     paddingLeft: 280,
   },
 }));
-
 export const DashboardLayout = (props) => {
-  const { children } = props;
+  const { children, title, description } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      setLogin(false);
+      return null;
     },
   });
-  const [isLogin, setLogin] = useState(status === "authenticated");
-  useEffect(() => {
-    setLogin(status === "authenticated");
-  }, [status]);
-
   return (
-    <AuthGuard>
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <DashboardLayoutRoot>
         <Box
           sx={{
@@ -44,16 +42,17 @@ export const DashboardLayout = (props) => {
           {children}
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar 
+      <DashboardNavbar
         user={session?.user}
-        isLogin={isLogin}
-        onSidebarOpen={() => setSidebarOpen(true)} />
+        isLogin={session && true}
+        onSidebarOpen={() => setSidebarOpen(true)}
+      />
       <DashboardSidebar
         user={session?.user}
-        isLogin={isLogin}
+        isLogin={session && true}
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
-    </AuthGuard>
+    </>
   );
 };
